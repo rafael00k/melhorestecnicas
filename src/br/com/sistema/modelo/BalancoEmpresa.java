@@ -4,31 +4,27 @@ import java.util.HashMap;
 
 public class BalancoEmpresa {
     private HashMap<String, Divida> dividas = new HashMap<>();
-    public void criaDivida (String nome,String cnpj , double valorTotal){
-        Divida divida = new Divida ();
-        divida.setValorTotal(valorTotal);
-        divida.setNomeCredor(nome);
-        divida.setCnpjCredor(cnpj);
-        dividas.put(cnpj,divida);
-
+    public void registraDivida(String credor, String cnpjCredor, double valor) {
+        Divida divida = new Divida();
+        divida.setValorTotal(valor);
+        divida.setNomeCredor(credor);
+        divida.setCnpjCredor(cnpjCredor);
+        dividas.put(cnpjCredor, divida);
     }
-    public void paga (double valor,String cnpj) {
-        if (cnpj == null){
-            throw new NullPointerException("Valor nulo!!!!");
 
-        }
-        if ( !(cnpj instanceof String)){
-            throw new IllegalArgumentException("CNPJ não está no formato certo !!!!");
-        }
-        Divida divida = dividas.get(cnpj);
-        if(divida != null) {
+    public void pagaDivida(String cnpjCredor, double valor, String nomePagador, String cnpjPagador) {
+        Divida divida = dividas.get(cnpjCredor);
+        if (divida != null) {
+            Pagamento pagamento = new Pagamento();
+            pagamento.setCnpjPagador(cnpjPagador);
+            pagamento.setPagador(nomePagador);
+            pagamento.setValor(valor);
             divida.paga(valor);
+            divida.getPagamentos().add(pagamento);
         }
+    }
+}
 
 
-
-        }
-
-     }
 
 
