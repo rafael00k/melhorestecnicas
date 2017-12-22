@@ -1,19 +1,34 @@
-package br.com.sistema.modelo;
+package src.br.com.sistema.modelo;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
 public class BalancoEmpresa {
-    Collection<Divida> dividas = new ArrayList<>();
+    private HashMap<String, Divida> dividas = new HashMap<>();
     public void criaDivida (String nome,String cnpj , double valorTotal){
-        dividas.add(new Divida(valorTotal, 0,nome,cnpj));
+        Divida divida = new Divida ();
+        divida.setValorTotal(valorTotal);
+        divida.setNomeCredor(nome);
+        divida.setCnpjCredor(cnpj);
+        dividas.put(cnpj,divida);
+
     }
     public void paga (double valor,String cnpj) {
-        for (Divida divida: dividas) {
-            if (divida.getCnpjCredor()==cnpj){
-                divida.paga(valor);
-            }
+        if (cnpj == null){
+            throw new NullPointerException("Valor nulo!!!!");
 
         }
-    }
-}
+        if ( !(cnpj instanceof String)){
+            throw new IllegalArgumentException("CNPJ não está no formato certo !!!!");
+        }
+        Divida divida = dividas.get(cnpj);
+        if(divida != null) {
+            divida.paga(valor);
+        }
+
+
+
+        }
+
+     }
+
+

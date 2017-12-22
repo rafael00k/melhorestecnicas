@@ -1,4 +1,4 @@
-package br.com.sistema.modelo;
+package src.br.com.sistema.modelo;
 
 public class Divida {
     double valorTotal;
@@ -6,12 +6,6 @@ public class Divida {
     String nomeCredor;
     String cnpjCredor;
 
-    public Divida(double valorTotal, double valorPago, String nomeCredor, String cnpjCredor) {
-        this.valorTotal = valorTotal;
-        this.valorPago = valorPago;
-        this.nomeCredor = nomeCredor;
-        this.cnpjCredor = cnpjCredor;
-    }
 
     public double getValorTotal() {
         return valorTotal;
