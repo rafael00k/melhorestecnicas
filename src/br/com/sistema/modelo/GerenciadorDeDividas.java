@@ -1,4 +1,4 @@
-package src.br.com.sistema.modelo;
+package br.com.sistema.modelo;
 
 public class GerenciadorDeDividas {
     public void efetuaPagamento(Divida divida, double valor) {
