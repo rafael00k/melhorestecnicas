@@ -24,13 +24,13 @@ public class Divida {
         this.nomeCredor = nomeCredor;
     }
     public Cnpj getCnpjCredor() {return cnpjCredor;}
-    public void setCnpjCredor(Cnpj cnpj) {this.cnpjCredor = cnpj;}
+    public void setCnpjCredor(Cnpj cnpj) {this.cnpjCredor= cnpj;}
     // outros metodos
-    public Pagamento getPagamentos (){return this.pagamentos;}
-
-
-
-    public double valorAPagar() {
+   public double valorAPagar() {
         return this.valorTotal - this.pagamentos.getValor();
+    }
+
+    public void regista(Pagamento pagamento) {
+        this.pagamentos.registra(pagamento);
     }
 }

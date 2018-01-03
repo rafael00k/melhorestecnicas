@@ -1,14 +1,15 @@
-package br.com.sistema.modelo;
+package br.com.sistema.modelo ;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class Pagamento extends ArrayList<Pagamento> {
+public class Pagamento  {
         private String pagador;
         private String cnpjPagador;
         private double valor;
         private Calendar data;
+        private ArrayList<Pagamento> pagamentos = new ArrayList<>();
 
 
         public String getPagador() {
@@ -32,15 +33,16 @@ public class Pagamento extends ArrayList<Pagamento> {
         public Calendar getData() {return data;}
         public void setData(Calendar data) {this.data = data;}
     public ArrayList<Pagamento> getPagamentos() {
-        return this;
+        return this.pagamentos;
     }
+
     public void registra(Pagamento pagamento) {
-        this.add(pagamento);
+        this.pagamentos.add(pagamento);
         paga(pagamento.getValor());
     }
     public ArrayList<Pagamento> pagamentosAntesDe(Calendar data) {
         ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
-        for (Pagamento pagamento : this) {
+        for (Pagamento pagamento : this.pagamentos) {
             if (pagamento.getData().before(data)) {
                 pagamentosFiltrados.add(pagamento);
             }
@@ -49,7 +51,7 @@ public class Pagamento extends ArrayList<Pagamento> {
     }
     public ArrayList<Pagamento> pagamentosComValorMaiorQue(double valorMinimo) {
         ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
-        for (Pagamento pagamento : this) {
+        for (Pagamento pagamento : this.pagamentos) {
             if (pagamento.getValor() > valorMinimo) {
                 pagamentosFiltrados.add(pagamento);
             }
@@ -58,7 +60,7 @@ public class Pagamento extends ArrayList<Pagamento> {
     }
     public ArrayList<Pagamento> pagamentosDo(String cnpjPagador) {
         ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
-        for (Pagamento pagamento : this) {
+        for (Pagamento pagamento : this.pagamentos) {
             if (pagamento.getCnpjPagador().equals(cnpjPagador)) {
                 pagamentosFiltrados.add(pagamento);
             }
