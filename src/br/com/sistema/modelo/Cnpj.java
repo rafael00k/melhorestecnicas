@@ -1,14 +1,22 @@
 package br.com.sistema.modelo;
 
-public class Cnpj {
+import br.com.sistema.interfaces.Documento;
+
+public class Cnpj implements Documento {
     private String cnpj;
     public Cnpj ( String cnpj){
         this.cnpj = cnpj;
     }
-    public boolean Valido() {
+    public boolean ehValido() {
         return primeiroDigitoVerificadorDoCnpj() == primeiroDigitoCorretoParaCnpj()
                 && segundoDigitoVerificadorDoCnpj() == segundoDigitoCorretoParaCnpj();
     }
+
+    @Override
+    public String getValor() {
+        return cnpj;
+    }
+
     private int primeiroDigitoCorretoParaCnpj() {
         // Extrai o primeiro dígito verificador do CNPJ armazenado
         // no atributo cnpj
@@ -29,7 +37,5 @@ public class Cnpj {
         // o CNPJ armazenado no atributo cnpj
         return 0;
     }
-    public String getCnpj() {
-        return cnpj;
-    }
+
 }

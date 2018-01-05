@@ -1,11 +1,13 @@
 package br.com.sistema.modelo;
 
 
+import br.com.sistema.interfaces.Documento;
+
 public class Divida {
     private double valorTotal;
 
     private String nomeCredor;
-    private Cnpj cnpjCredor;
+    private Documento documento;
     private Pagamento pagamentos = new Pagamento();
 
 
@@ -23,8 +25,8 @@ public class Divida {
     public void setNomeCredor(String nomeCredor) {
         this.nomeCredor = nomeCredor;
     }
-    public Cnpj getCnpjCredor() {return cnpjCredor;}
-    public void setCnpjCredor(Cnpj cnpj) {this.cnpjCredor= cnpj;}
+    public Documento getDocumento() {return this.documento;}
+    public void setDocumento( Documento documento) {this.documento = documento;}
     // outros metodos
    public double valorAPagar() {
         return this.valorTotal - this.pagamentos.getValor();

@@ -1,15 +1,19 @@
 package br.com.sistema.modelo ;
 
+import br.com.sistema.interfaces.Documento;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 
 
-public class Pagamento  {
+public class Pagamento implements Iterable<Pagamento>  {
         private String pagador;
-        private String cnpjPagador;
+        private Documento documentoPagador;
         private double valor;
         private Calendar data;
-        private ArrayList<Pagamento> pagamentos = new ArrayList<>();
+        private Collection<Pagamento> pagamentos = new ArrayList<>();
 
 
         public String getPagador() {
@@ -18,11 +22,11 @@ public class Pagamento  {
         public void setPagador(String pagador) {
             this.pagador = pagador;
         }
-        public String getCnpjPagador() {
-            return this.cnpjPagador;
+        public Documento getDocumentoPagador() {
+            return this.documentoPagador;
         }
-        public void setCnpjPagador(String cnpjPagador) {
-            this.cnpjPagador = cnpjPagador;
+        public void setDocumentoPagador(Documento documentoPagador) {
+            this.documentoPagador = documentoPagador;
         }
         public double getValor() {
             return this.valor;
@@ -32,7 +36,7 @@ public class Pagamento  {
         }
         public Calendar getData() {return data;}
         public void setData(Calendar data) {this.data = data;}
-    public ArrayList<Pagamento> getPagamentos() {
+    public Collection<Pagamento> getPagamentos() {
         return this.pagamentos;
     }
 
@@ -40,16 +44,16 @@ public class Pagamento  {
         this.pagamentos.add(pagamento);
         paga(pagamento.getValor());
     }
-    public ArrayList<Pagamento> pagamentosAntesDe(Calendar data) {
-        ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
-        for (Pagamento pagamento : this.pagamentos) {
+    public Collection<Pagamento> pagamentosAntesDe(Calendar data) {
+        Collection<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
+        for (Pagamento pagamento : this) {
             if (pagamento.getData().before(data)) {
                 pagamentosFiltrados.add(pagamento);
             }
         }
         return pagamentosFiltrados;
     }
-    public ArrayList<Pagamento> pagamentosComValorMaiorQue(double valorMinimo) {
+    public Collection<Pagamento> pagamentosComValorMaiorQue(double valorMinimo) {
         ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
         for (Pagamento pagamento : this.pagamentos) {
             if (pagamento.getValor() > valorMinimo) {
@@ -58,10 +62,10 @@ public class Pagamento  {
         }
         return pagamentosFiltrados;
     }
-    public ArrayList<Pagamento> pagamentosDo(String cnpjPagador) {
-        ArrayList<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
+    public Collection<Pagamento> pagamentosDo(Documento documentoPagador) {
+        Collection<Pagamento> pagamentosFiltrados = new ArrayList<Pagamento>();
         for (Pagamento pagamento : this.pagamentos) {
-            if (pagamento.getCnpjPagador().equals(cnpjPagador)) {
+            if (pagamento.getDocumentoPagador().getValor() == documentoPagador.getValor()) {
                 pagamentosFiltrados.add(pagamento);
             }
         }
@@ -76,5 +80,10 @@ public class Pagamento  {
         }
         this.valor += valor;
     }
+
+    @Override
+    public Iterator iterator() {
+        return pagamentos.iterator();
     }
+}
 
